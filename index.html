@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gestion des Réservations</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JavaScript client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.6/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm py-4 mb-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-semibold">Réservations</a>
+            <ul class="flex space-x-8">
+                <li><a href="#" class="nav-link">Calendrier</a></li>
+                <li><a href="#" class="nav-link">Ajouter Réservation</a></li>
+                <li><a href="#" class="nav-link">Historique</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Section du Calendrier -->
+            <div class="dashboard-card">
+                <h2 class="dashboard-header">Calendrier des Réservations</h2>
+                <div id="calendar" class="border rounded-lg shadow-lg"></div>
+                
+                <!-- Détails de la réservation sous le calendrier -->
+                <div id="eventDetails" class="mt-6 hidden">
+                    <h3 class="text-lg font-semibold mb-4">Détails de la Réservation</h3>
+                    <p><strong>Status :</strong> <span id="detailStatus"></span></p>
+                    <p><strong>Date d'arrivée :</strong> <span id="detailStart"></span></p>
+                    <p><strong>Date de départ :</strong> <span id="detailEnd"></span></p>
+                    <p><strong>Tarif :</strong> <span id="detailTarif"></span>€</p>
+                </div>
+            </div>
+
+            <!-- Section des détails et formulaire -->
+            <div class="dashboard-card">
+                <h2 class="dashboard-header">Ajouter ou Modifier une Réservation</h2>
+                <form id="reservationForm">
+                    <div class="mb-4">
+                        <label class="block mb-2">Status</label>
+                        <select id="status" class="input-field block w-full">
+                            <option value="disponible">Disponible</option>
+                            <option value="réservé">Réservé</option>
+                            <option value="promotion">Promotion</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2">Date d'arrivée</label>
+                        <input type="date" id="startDate" class="input-field block w-full">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2">Date de départ</label>
+                        <input type="date" id="endDate" class="input-field block w-full">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2">Tarif</label>
+                        <input type="number" id="tarif" class="input-field block w-full" placeholder="Entrez le tarif">
+                    </div>
+                    <button type="submit" class="dashboard-btn w-full">Ajouter ou Modifier</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Recherche -->
+        <div class="dashboard-card mt-10">
+            <h2 class="dashboard-header">Rechercher une Réservation</h2>
+            <input type="text" id="searchInput" class="input-field block w-full" placeholder="Rechercher par date, status ou tarif...">
+        </div>
+
+        <!-- Tableau des réservations -->
+        <div class="mt-10 dashboard-card">
+            <h2 class="dashboard-header">Tableau des Réservations</h2>
+            <table class="min-w-full bg-white shadow-md rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Date d'arrivée</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Date de départ</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Tarif</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="reservationTable">
+                    <!-- Les nouvelles réservations apparaîtront ici -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+
+</body>
+</html>
